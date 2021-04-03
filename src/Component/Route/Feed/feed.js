@@ -12,7 +12,7 @@ function Feed() {
           key={card.card_id}
           id={card.card_id}
           userId={card.user_id}
-          storeId={card.store_id}
+          storeId={card.id}
           review={card.review}
           thumb_nail_image={card.thumb_nail_image}
         />

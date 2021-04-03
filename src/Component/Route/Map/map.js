@@ -1,12 +1,25 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps"; // 패키지 불러오기
 import { GeoContext } from "../../../App";
-import storeData from "../../../test_data/store_data.json";
+import getStores from "../../../util/getStores";
 import "./marker.css";
 import legend from "../../../data/legend.json";
-
+import storesTest from "../../../test_data/store_data.json";
 function Map() {
   const geo = useContext(GeoContext);
+
+  const [stores, setStores] = useState([]);
+  console.log(stores);
+  useEffect(() => {
+    getStores(300, geo.geoLocation.latitude, geo.geoLocation.longitude)
+      .then((stores) => {
+        setStores(stores);
+      })
+      .catch((rejected) => {
+        console.log(rejected);
+      });
+  }, []);
+
   const [zoomState, setZoomState] = useState(15);
   const findRealDistance = () => {
     const temp = String(zoomState);
@@ -15,7 +28,6 @@ function Map() {
 
   const getDataByZoomChanged = (zoom) => {
     setZoomState(zoom);
-    // data fetch(zoom, x좌표, y좌표)
   };
 
   const scroll = () => {
@@ -45,29 +57,63 @@ function Map() {
         onZoomChanged={(zoom) => getDataByZoomChanged(zoom)}
         onCenterChanged={(center) => {
           const distance = findRealDistance();
-          geo.setCustomGeoLocation(distance, center.x, center.y);
+          // geo.setCustomGeoLocation(distance, center.x, center.y);
+
+          getStores(distance, center.y, center.x)
+            .then((stores) => {
+              setStores(stores);
+            })
+            .catch((rejected) => {
+              console.log(rejected);
+            });
         }}
       >
-        {storeData.stores.map((store) => (
-          <Marker
-            key={store.store_id}
-            position={{ lat: store.latitude, lng: store.longitude }}
-            animation={2}
-            icon={{
-              content:
-                zoomState >= 14
-                  ? [
-                      '<div class="cs_mapbridge">',
-                      "<div class='marker'>",
-                      `${store.store_name}`,
-                      "</div>",
-                      "</div>",
-                    ].join("")
-                  : "<div class='zoom-out-marker'></div>",
-            }}
-            onClick={() => alert("hello")}
-          />
-        ))}
+        {stores.map((store) => {
+          return (
+            <Marker
+              key={Number(store.id)}
+              position={{ lat: store.y, lng: store.x }}
+              animation={0}
+              icon={{
+                content:
+                  zoomState >= 14
+                    ? [
+                        '<div class="cs_mapbridge">',
+                        "<div class='marker'>",
+                        `${store.place_name}`,
+                        "</div>",
+                        "</div>",
+                      ].join("")
+                    : "<div class='zoom-out-marker'></div>",
+              }}
+              onClick={() => alert("hello")}
+            />
+          );
+        })}
+        {/* {storesTest.stores.map((store) => {
+          console.log(store);
+          console.log(zoomState);
+          return (
+            <Marker
+              key={Number(store.id)}
+              position={{ lat: store.y, lng: store.x }}
+              animation={0}
+              // icon={{
+              //   content:
+              //     zoomState >= 14
+              //       ? [
+              //           '<div class="cs_mapbridge">',
+              //           "<div class='marker'>",
+              //           `${store.place_name}`,
+              //           "</div>",
+              //           "</div>",
+              //         ].join("")
+              //       : "<div class='zoom-out-marker'></div>",
+              // }}
+              onClick={() => alert("hello")}
+            />
+          );
+        })} */}
       </NaverMap>
     </RenderAfterNavermapsLoaded>
   );

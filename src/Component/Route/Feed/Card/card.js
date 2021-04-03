@@ -24,8 +24,8 @@ function Card({ id, userId, storeId, review, thumb_nail_image }) {
       <div className={style.review}>{review}</div>
 
       <CardDetailLinkBox
-        id={store.store_id}
-        storeName={store.store_name}
+        id={store.id}
+        storeName={store.place_name}
         storeAddress={store.store_address}
       />
     </div>
