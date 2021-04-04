@@ -5,11 +5,12 @@ import getStores from "../../../util/getStores";
 import "./marker.css";
 import legend from "../../../data/legend.json";
 import storesTest from "../../../test_data/store_data.json";
+
 function Map() {
   const geo = useContext(GeoContext);
 
   const [stores, setStores] = useState([]);
-  console.log(stores);
+
   useEffect(() => {
     getStores(300, geo.geoLocation.latitude, geo.geoLocation.longitude)
       .then((stores) => {
@@ -54,18 +55,33 @@ function Map() {
         }} // 지도 초기 위치
         defaultZoom={15} // 지도 초기 확대 배율 => 해
         onMouseover={scroll}
-        onZoomChanged={(zoom) => getDataByZoomChanged(zoom)}
-        onCenterChanged={(center) => {
+        onZoomChanged={(zoom) => {
+          getDataByZoomChanged(zoom);
           const distance = findRealDistance();
-          // geo.setCustomGeoLocation(distance, center.x, center.y);
 
-          getStores(distance, center.y, center.x)
+          getStores(
+            distance,
+            geo.geoLocation.latitude,
+            geo.geoLocation.longitude
+          )
             .then((stores) => {
               setStores(stores);
             })
             .catch((rejected) => {
               console.log(rejected);
             });
+        }}
+        onCenterChanged={(center) => {
+          const distance = findRealDistance();
+          // geo.setCustomGeoLocation(distance, center.x, center.y);
+
+          // getStores(distance, center.y, center.x)
+          //   .then((stores) => {
+          //     setStores(stores);
+          //   })
+          //   .catch((rejected) => {
+          //     console.log(rejected);
+          //   });
         }}
       >
         {stores.map((store) => {
@@ -74,18 +90,18 @@ function Map() {
               key={Number(store.id)}
               position={{ lat: store.y, lng: store.x }}
               animation={0}
-              icon={{
-                content:
-                  zoomState >= 14
-                    ? [
-                        '<div class="cs_mapbridge">',
-                        "<div class='marker'>",
-                        `${store.place_name}`,
-                        "</div>",
-                        "</div>",
-                      ].join("")
-                    : "<div class='zoom-out-marker'></div>",
-              }}
+              // icon={{
+              //   content:
+              //     zoomState >= 14
+              //       ? [
+              //           '<div class="cs-mapbridge">',
+              //           "<div class='marker'>",
+              //           `${store.place_name}`,
+              //           "</div>",
+              //           "</div>",
+              //         ].join("")
+              //       : "<div class='zoom-out-marker'></div>",
+              // }}
               onClick={() => alert("hello")}
             />
           );
