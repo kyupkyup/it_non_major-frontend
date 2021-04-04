@@ -106,30 +106,6 @@ function Map() {
             />
           );
         })}
-        {/* {storesTest.stores.map((store) => {
-          console.log(store);
-          console.log(zoomState);
-          return (
-            <Marker
-              key={Number(store.id)}
-              position={{ lat: store.y, lng: store.x }}
-              animation={0}
-              // icon={{
-              //   content:
-              //     zoomState >= 14
-              //       ? [
-              //           '<div class="cs_mapbridge">',
-              //           "<div class='marker'>",
-              //           `${store.place_name}`,
-              //           "</div>",
-              //           "</div>",
-              //         ].join("")
-              //       : "<div class='zoom-out-marker'></div>",
-              // }}
-              onClick={() => alert("hello")}
-            />
-          );
-        })} */}
       </NaverMap>
     </RenderAfterNavermapsLoaded>
   );
