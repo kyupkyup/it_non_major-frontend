@@ -1,0 +1,35 @@
+.container {
+  width: 280px;
+  height: 100px;
+  margin: 10px 0;
+  border: gray 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.title {
+  font-size: 16px;
+  font-family: "Arita-dotum-Medium";
+  font-style: normal;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+.category {
+  width: 100%;
+  font-size: 12px;
+  font-family: "Arita-dotum-Medium";
+  font-style: normal;
+  font-weight: normal;
+  color: black;
+  text-decoration: none;
+  overflow: hidden;
+}
+.address {
+  font-size: 12px;
+  font-family: "Arita-dotum-Medium";
+  font-style: normal;
+  font-weight: normal;
+  color: black;
+  text-decoration: none;
+}

@@ -58,3 +58,17 @@
   font-size: 15px;
   border: none;
 }
+.set_location_button:hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 50px;
+  color: white;
+  background-color: #2d8dee;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px 0 rgb(20 20 20 / 20%);
+  font-weight: bolder;
+  font-size: 15px;
+  border: none;
+}

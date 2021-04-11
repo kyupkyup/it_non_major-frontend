@@ -3,16 +3,22 @@ import { RenderAfterNavermapsLoaded, NaverMap, Marker } from "react-naver-maps";
 import { GeoContext } from "../../../App";
 import getStores from "../../../util/getStores";
 import "./marker.css";
+import style from "./map.module.css";
 import legend from "../../../data/legend.json";
-import storesTest from "../../../test_data/store_data.json";
+import MapList from "./MapList/mapList";
+// import storesTest from "../../../test_data/store_data.json";
 
 function Map() {
   const geo = useContext(GeoContext);
 
   const [stores, setStores] = useState([]);
+  const [center, setCenter] = useState({
+    distance: 300,
+    center: { y: geo.geoLocation.latitude, x: geo.geoLocation.longitude },
+  });
 
   useEffect(() => {
-    getStores(300, geo.geoLocation.latitude, geo.geoLocation.longitude)
+    getStores(center.distance, center.center.y, center.center.x)
       .then((stores) => {
         setStores(stores);
       })
@@ -37,77 +43,99 @@ function Map() {
   };
 
   return (
-    <RenderAfterNavermapsLoaded
-      ncpClientId={"vmwwi5c4v1"} // 자신의 네이버 계정에서 발급받은 Client ID
-      error={<p>Maps Load Error</p>}
-      loading={<p>Maps Loading...</p>}
-    >
-      <NaverMap
-        mapDivId={"react-naver-map"} // default: react-nave
-        p
-        style={{
-          width: "100%", // 네이버지도 가로 길이
-          height: "80vh", // 네이버지도 세로 길이
-        }}
-        defaultCenter={{
-          lat: geo.geoLocation.latitude,
-          lng: geo.geoLocation.longitude,
-        }} // 지도 초기 위치
-        defaultZoom={15} // 지도 초기 확대 배율 => 해
-        onMouseover={scroll}
-        onZoomChanged={(zoom) => {
-          getDataByZoomChanged(zoom);
-          const distance = findRealDistance();
-
-          getStores(
-            distance,
-            geo.geoLocation.latitude,
-            geo.geoLocation.longitude
-          )
-            .then((stores) => {
+    <div className={`${style.container}`}>
+      <div className={`${style.list_container}`}>
+        {stores &&
+          stores.map((store) => {
+            return (
+              <MapList
+                key={Number(store.id)}
+                name={store.place_name}
+                url={store.place_url}
+                category={store.category_name}
+                address={store.road_address_name}
+              />
+            );
+          })}
+      </div>
+      <div
+        className={`${style.current_position_button}`}
+        onClick={() =>
+          getStores(center.distance, center.center.y, center.center.x).then(
+            (stores) => {
               setStores(stores);
-            })
-            .catch((rejected) => {
-              console.log(rejected);
-            });
-        }}
-        onCenterChanged={(center) => {
-          const distance = findRealDistance();
-          // geo.setCustomGeoLocation(distance, center.x, center.y);
-
-          // getStores(distance, center.y, center.x)
-          //   .then((stores) => {
-          //     setStores(stores);
-          //   })
-          //   .catch((rejected) => {
-          //     console.log(rejected);
-          //   });
-        }}
+            }
+          )
+        }
       >
-        {stores.map((store) => {
-          return (
-            <Marker
-              key={Number(store.id)}
-              position={{ lat: store.y, lng: store.x }}
-              animation={0}
-              // icon={{
-              //   content:
-              //     zoomState >= 14
-              //       ? [
-              //           '<div class="cs-mapbridge">',
-              //           "<div class='marker'>",
-              //           `${store.place_name}`,
-              //           "</div>",
-              //           "</div>",
-              //         ].join("")
-              //       : "<div class='zoom-out-marker'></div>",
-              // }}
-              onClick={() => alert("hello")}
-            />
-          );
-        })}
-      </NaverMap>
-    </RenderAfterNavermapsLoaded>
+        현 위치에서 찾기
+      </div>
+
+      <RenderAfterNavermapsLoaded
+        ncpClientId={"vmwwi5c4v1"} // 자신의 네이버 계정에서 발급받은 Client ID
+        error={<p>Maps Load Error</p>}
+        loading={<p>Maps Loading...</p>}
+      >
+        <NaverMap
+          mapDivId={"react-naver-map"} // default: react-nave
+          p
+          style={{
+            width: "100%", // 네이버지도 가로 길이
+            height: "80vh", // 네이버지도 세로 길이
+          }}
+          defaultCenter={{
+            lat: geo.geoLocation.latitude,
+            lng: geo.geoLocation.longitude,
+          }} // 지도 초기 위치
+          defaultZoom={15} // 지도 초기 확대 배율 => 해
+          onMouseover={scroll}
+          onZoomChanged={(zoom) => {
+            getDataByZoomChanged(zoom);
+            const distance = findRealDistance();
+            setCenter({
+              distance: distance,
+              center: {
+                x: center.center.x,
+                y: center.center.y,
+              },
+            });
+            console.log(center);
+            getStores(center.distance, center.center.y, center.center.x)
+              .then((stores) => {
+                setStores(stores);
+              })
+              .catch((rejected) => {
+                console.log(rejected);
+              });
+          }}
+          onCenterChanged={(center) => {
+            console.log(center);
+            const distance = findRealDistance();
+            if (center && distance) {
+              setCenter({
+                center: {
+                  x: center.x,
+                  y: center.y,
+                },
+                distance: distance,
+              });
+            }
+          }}
+        >
+          {stores &&
+            stores.map((store) => {
+              return (
+                <Marker
+                  key={Number(store.id)}
+                  position={{ lat: store.y, lng: store.x }}
+                  animation={0}
+                  onClick={() => alert(store.id)}
+                />
+              );
+            })}
+        </NaverMap>
+      </RenderAfterNavermapsLoaded>
+    </div>
   );
 }
 export default Map;
