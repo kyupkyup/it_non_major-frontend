@@ -19,25 +19,25 @@ function BodyRouter({ resetGeoLocation }) {
     <Router>
       <div id="router" className={`${style.router}`}>
         <NavLink
-          to="/feed"
-          className={`${style.link}`}
-          activeClassName={`${style.active_link}`}
-        >
-          피드
-        </NavLink>
-        <NavLink
           to="/map"
           className={`${style.link}`}
           activeClassName={`${style.active_link}`}
         >
           지도
         </NavLink>
+        {/* <NavLink
+          to="/feed"
+          className={`${style.link}`}
+          activeClassName={`${style.active_link}`}
+        >
+          피드
+        </NavLink> */}
       </div>
       <div className={`${style.get_location_container}`}>
         <div className={`${style.get_location}`}>
           <button
             className={`${style.set_location_button}`}
-            onClick={geo.setGeoLocation}
+            onClick={() => geo.setGeoLocation()}
           >
             <img
               src={postionImage}
@@ -54,15 +54,15 @@ function BodyRouter({ resetGeoLocation }) {
         </div>
       </div>
       <Switch>
-        <Route path="/feed">
+        {/* <Route path="/feed">
           <Feed />
-        </Route>
+        </Route> */}
         <Route path="/map">
           <Map />
         </Route>
 
         <Route exact path="/">
-          <Feed />
+          <Map />
         </Route>
         <Redirect from="*" to="/" />
       </Switch>

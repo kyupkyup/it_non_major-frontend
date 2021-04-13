@@ -10,7 +10,6 @@ import MapList from "./MapList/mapList";
 
 function Map() {
   const geo = useContext(GeoContext);
-
   const [stores, setStores] = useState([]);
   const [center, setCenter] = useState({
     distance: 300,
@@ -74,11 +73,10 @@ function Map() {
       <RenderAfterNavermapsLoaded
         ncpClientId={"vmwwi5c4v1"} // 자신의 네이버 계정에서 발급받은 Client ID
         error={<p>Maps Load Error</p>}
-        loading={<p>Maps Loading...</p>}
+        loading={<p>loading</p>}
       >
         <NaverMap
           mapDivId={"react-naver-map"} // default: react-nave
-          p
           style={{
             width: "100%", // 네이버지도 가로 길이
             height: "80vh", // 네이버지도 세로 길이

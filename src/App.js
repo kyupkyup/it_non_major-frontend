@@ -6,18 +6,21 @@ import getStores from "./util/getStores";
 export const GeoContext = React.createContext();
 
 function App() {
-  let geoLocaInit = getGeoLoca();
   let stores = [];
-  const [geoLocation, setGeoLocation] = useState(geoLocaInit);
+  const [geoLocation, setGeoLocation] = useState();
+  getGeoLoca.then(function (value) {
+    setGeoLocation(value);
+    console.log(value);
+  });
   const resetGeoLocation = () => {
-    setGeoLocation(getGeoLoca());
+    getGeoLoca.then(function (value) {
+      setGeoLocation(value);
+    });
   };
   const geoObject = {
     stores: stores,
     geoLocation: geoLocation,
-    setGeoLocation: () => {
-      resetGeoLocation();
-    },
+    setGeoLocation: resetGeoLocation,
     setCustomGeoLocation: (distance, latitude, longitude) => {
       this.stores = getStores(distance, latitude, longitude);
       setGeoLocation({ latitude: latitude, longitude: longitude });
@@ -27,7 +30,7 @@ function App() {
   return (
     <GeoContext.Provider value={geoObject}>
       <Header />
-      <BodyRouter />
+      {geoLocation ? <BodyRouter /> : <div>loading</div>}
     </GeoContext.Provider>
   );
 }
