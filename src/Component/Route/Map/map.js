@@ -97,7 +97,6 @@ function Map() {
                 y: center.center.y,
               },
             });
-            console.log(center);
             getStores(center.distance, center.center.y, center.center.x)
               .then((stores) => {
                 setStores(stores);
@@ -107,7 +106,6 @@ function Map() {
               });
           }}
           onCenterChanged={(center) => {
-            console.log(center);
             const distance = findRealDistance();
             if (center && distance) {
               setCenter({
