@@ -125,8 +125,7 @@ function Map() {
                   key={Number(store.id)}
                   position={{ lat: store.y, lng: store.x }}
                   animation={0}
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     window.location.href = store.place_url;
                   }}
                 />
