@@ -20,6 +20,8 @@
   top: 40px;
   border-radius: 10px;
   overflow-y: scroll;
+  box-shadow: 0 4px 6px 0 rgb(20 20 20 / 40%);
+
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
@@ -42,6 +44,7 @@
   background-color: white;
   border-radius: 10px;
   cursor: pointer;
+  box-shadow: 0 4px 6px 0 rgb(20 20 20 / 40%);
 }
 .current_position_button:hover {
   display: flex;

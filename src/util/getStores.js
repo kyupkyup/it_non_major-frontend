@@ -2,7 +2,7 @@
 function getStores(distance, lat, log) {
   // data fetch again
   return fetch(
-    "http://3.36.171.252:5000/api/v1/place?x=" +
+    "https://www.weatherplace.site/api/v1/place?x=" +
       log +
       "&y=" +
       lat +
