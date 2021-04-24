@@ -10,6 +10,7 @@ function App() {
   let stores = [];
   let [todays, setTodays] = useState();
   const [geoLocation, setGeoLocation] = useState();
+
   getGeoLoca.then(function (value) {
     setGeoLocation(value);
     if (!todays) {

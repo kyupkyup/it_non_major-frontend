@@ -46,6 +46,7 @@ function Map() {
       <div className={`${style.list_container}`}>
         {stores &&
           stores.map((store) => {
+            console.log(stores);
             return (
               <MapList
                 key={Number(store.id)}
@@ -88,6 +89,7 @@ function Map() {
           defaultZoom={15} // 지도 초기 확대 배율 => 해
           onMouseover={scroll}
           onZoomChanged={(zoom) => {
+            console.log(zoom);
             getDataByZoomChanged(zoom);
             const distance = findRealDistance();
             setCenter({
