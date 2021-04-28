@@ -24,7 +24,9 @@ https://adoring-heyrovsky-d172e9.netlify.app/
 ### 데스크톱
 ![](https://images.velog.io/images/lky9303/post/9e3de6eb-dda2-4a1f-8664-7305aa915ded/image.png)
 ### 반응형 모바일
-![](https://images.velog.io/images/lky9303/post/ed9ef2a1-f3bb-4d9c-9024-203d70191fb7/localhost_3000_.png)
+
+<img src="https://images.velog.io/images/lky9303/post/ed9ef2a1-f3bb-4d9c-9024-203d70191fb7/localhost_3000_.png" height="900px" width="300px">
+
 ### 사용 기술
 
 #### 프론트엔드
