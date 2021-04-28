@@ -19,10 +19,12 @@ https://adoring-heyrovsky-d172e9.netlify.app/
 1. 날씨에 맞는 오늘의 음식 추천
 2. 인근의 오늘의 음식점 추천
 
+
 ## 스크린샷
-
+### 데스크톱
 ![](https://images.velog.io/images/lky9303/post/9e3de6eb-dda2-4a1f-8664-7305aa915ded/image.png)
-
+### 반응형 모바일
+![](https://images.velog.io/images/lky9303/post/ed9ef2a1-f3bb-4d9c-9024-203d70191fb7/localhost_3000_.png)
 ### 사용 기술
 
 #### 프론트엔드
