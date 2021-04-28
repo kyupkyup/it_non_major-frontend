@@ -57,6 +57,7 @@
   font-weight: bolder;
   font-size: 15px;
   border: none;
+  margin-left: 20px;
 }
 .set_location_button:hover {
   display: flex;

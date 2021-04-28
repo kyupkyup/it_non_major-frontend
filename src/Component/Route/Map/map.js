@@ -40,10 +40,28 @@ function Map() {
     let location = document.querySelector("#router").offsetTop;
     window.scrollTo({ top: location, behavior: "smooth" });
   };
+  const [listClick, setListClick] = useState(true);
+  console.log(listClick);
+
+  const clickList = () => {
+    if (listClick) {
+      setListClick(false);
+    } else {
+      setListClick(true);
+    }
+  };
 
   return (
     <div className={`${style.container}`}>
-      <div className={`${style.list_container}`}>
+      <div
+        className={`${
+          listClick ? style.list_container : style.list_container_mobile_show
+        }`}
+      >
+        <button class={`${style.mobile_show_list}`} onClick={() => clickList()}>
+          {listClick ? "클릭해서 리스트 보기" : "클릭해서 닫기"}
+        </button>
+
         {stores &&
           stores.map((store) => {
             console.log(stores);

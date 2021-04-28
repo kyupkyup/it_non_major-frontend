@@ -34,3 +34,26 @@
   color: black;
   text-decoration: none;
 }
+@media screen and (min-width: 740px) {
+  .container {
+    width: 280px;
+    height: 100px;
+    margin: 10px 0;
+
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 6px 0 rgb(20 20 20 / 40%);
+  }
+}
+@media screen and (max-width: 740px) {
+  .container {
+    width: 90%;
+    height: 100px;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 6px 0 rgb(20 20 20 / 40%);
+  }
+}

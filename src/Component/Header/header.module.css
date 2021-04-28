@@ -33,3 +33,18 @@
   font-weight: 700;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 } */
+
+@media screen and (max-width: 740px) {
+  .logo {
+    text-align: center;
+    padding: 10px 0 0 0;
+  }
+  .title {
+    display: block;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  .title span {
+    font-size: 2.5rem;
+  }
+}
